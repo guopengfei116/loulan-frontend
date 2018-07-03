@@ -23,7 +23,7 @@ app.controller("sellerController", ["$controller", "$scope", "sellerService", fu
     console.log(123)
     // 分页条件查询
     $scope.findPage = function (page, size) {
-        sellerService.findPage(page, size, $scope.seller)
+        sellerService.findPage(page, size, $scope.sellerSearch)
             .then(resp => {
                 $scope.list = resp.data.list;
                 $scope.paginationConfig.totalItems = resp.data.total;

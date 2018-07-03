@@ -1,16 +1,16 @@
-app.service("type_templateService", ["$http", "baseService", function($http, baseService) {
+app.service("type_templateService", ["$http", "baseService", function ($http, baseService) {
 
     let domain = "http://loulan.com";
     let urlPrefix = domain + "/typeTemplate";
 
     angular.extend(this, new baseService(urlPrefix));
 
-    this.brandList = function(){
-        return $http.get(`${domain}/brand/selectOptionList.do`);
+    this.brandList = function () {
+        return $http.get(`${domain}/brand/selectOptionList.do`, { withCredentials: true });
     }
-    
-    this.specificationList = function(){
-        return $http.get(`${domain}/specification/selectOptionList.do`);
+
+    this.specificationList = function () {
+        return $http.get(`${domain}/specification/selectOptionList.do`, { headers, withCredentials: true });
     }
-    
+
 }]);
