@@ -1,10 +1,14 @@
-app.controller("type_templateController", ["$controller", "$scope", "type_templateService", function ($controller, $scope, type_templateService) {
+
+
+app.controller("typeTemplateController", ["$controller", "$scope", "typeTemplateService", function ($controller, $scope, typeTemplateService) {
     // 继承
     $controller("baseController", { $scope });
+
     // 实体对象
     $scope.typeTeamplateSearch = {
         name: "",
     };
+
     //  数据结构
     $scope.typeTemplate = {
         id: "",
@@ -14,10 +18,9 @@ app.controller("type_templateController", ["$controller", "$scope", "type_templa
         customAttributeItems: []
     }
 
-
     // 查询品牌全部数据
 
-    type_templateService.brandList()
+    typeTemplateService.brandList()
         .then(resp => {
             $scope.brandList = {};
             $scope.brandList.data = resp.data;
@@ -25,7 +28,7 @@ app.controller("type_templateController", ["$controller", "$scope", "type_templa
 
 
     // 查询规格全部数据
-    type_templateService.specificationList()
+    typeTemplateService.specificationList()
         .then(resp => {
             $scope.specificationList = {};
             $scope.specificationList.data = resp.data;
@@ -34,7 +37,7 @@ app.controller("type_templateController", ["$controller", "$scope", "type_templa
 
     // 分页条件查询
     $scope.findPage = function (page, size) {
-        type_templateService.findPage(page, size, $scope.typeTeamplateSearch)
+        typeTemplateService.findPage(page, size, $scope.typeTeamplateSearch)
             .then(resp => {
                 $scope.list = resp.data.list;
                 $scope.paginationConfig.totalItems = resp.data.total;
@@ -43,7 +46,7 @@ app.controller("type_templateController", ["$controller", "$scope", "type_templa
 
     // 数据回显
     $scope.findOne = function (id) {
-        type_templateService.findOne(id)
+        typeTemplateService.findOne(id)
             .then(resp => {
                 $scope.typeTemplate = resp.data;  // 请求回来的数据进行回显编辑
                 $scope.typeTemplate.specIds = JSON.parse(resp.data.specIds);
@@ -56,7 +59,7 @@ app.controller("type_templateController", ["$controller", "$scope", "type_templa
     $scope.save = function () {
         // 如果实体对象中有id，那么证明是编辑
         let method = $scope.typeTemplate.id ? "update" : "add";
-        type_templateService[method]($scope.typeTemplate)
+        typeTemplateService[method]($scope.typeTemplate)
             .then(resp => {
                 alert(resp.data.message);
                 if (resp.data.success) {
@@ -79,7 +82,7 @@ app.controller("type_templateController", ["$controller", "$scope", "type_templa
             return;
         }
         if (confirm("你确定要删除吗")) {
-            type_templateService.delIds($scope.delIds)
+            typeTemplateService.delIds($scope.delIds)
                 .then(resp => {
                     alert(resp.data.message);
                     if (resp.data.success) {

@@ -13,10 +13,18 @@
     <link rel="stylesheet" href="../css/style.css">
 	<script src="../lib/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
-    
+	<script src="../lib/angularjs/angular.min.js"></script>
+	<script src="../lib/angularjs/pagination.js"></script>
+
+	<script src="../js/loulan/module/loulan.js"></script>
+	<script src="../js/loulan/service/base-service.js"></script>
+	<script src="../js/loulan/controller/base-controller.js"></script>
+
+	<script src="../js/loulan/controller/item_cat-controller.js"></script>
+	<script src="../js/loulan/service/item_cat-service.js"></script>
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" >
+<body class="hold-transition skin-red sidebar-mini" ng-controller="itemCatController" ng-app="loulan" ng-init="itemSearch.parentId = '0'">
   <!-- .box-body -->
                 
                     <div class="box-header with-border">
@@ -68,37 +76,13 @@
 			                          </tr>
 			                      </thead>
 			                      <tbody>
-			                          <tr >
-			                              <td><input  type="checkbox" ></td>			                              
-				                          <td>982</td>
-									      <td>吊坠/项链</td>									    
+			                          <tr ng-repeat="item in list">
+			                              <td><input type="checkbox" ></td>			                              
+				                          <td>{{ item.id }}</td>
+									      <td>{{ item.name }}</td>									    
 									      <td>
-									      	11    
-									      </td>									      
-		                                  <td class="text-center">		                                     
-		                                      <button type="button" class="btn bg-olive btn-xs" >查询下级</button> 		                                     
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>                                           
-		                                  </td>
-			                          </tr>
-									  <tr >
-			                              <td><input  type="checkbox"> </td>			                              
-				                          <td>983</td>
-									      <td>手镯/手链/脚链</td>									    
-									      <td>
-									      	11    
-									      </td>									      
-		                                  <td class="text-center">		                                     
-		                                      <button type="button" class="btn bg-olive btn-xs" >查询下级</button> 		                                     
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>                                           
-		                                  </td>
-			                          </tr>
-									  <tr >
-			                              <td><input  type="checkbox" ></td>			                              
-				                          <td>984</td>
-									      <td>戒指/耳饰</td>									    
-									      <td>
-									      	11    
-									      </td>									      
+									      	{{ item.typeId }}   
+									      </td>
 		                                  <td class="text-center">		                                     
 		                                      <button type="button" class="btn bg-olive btn-xs" >查询下级</button> 		                                     
 		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>                                           
@@ -110,9 +94,6 @@
 						
                         </div>
                         <!-- 数据表格 /-->
-                        
-                    <tm-pagination conf="paginationConfig"></tm-pagination>
-                        
                         
                      </div>
                     <!-- /.box-body -->

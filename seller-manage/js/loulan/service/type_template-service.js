@@ -1,7 +1,8 @@
-app.service("type_templateService", ["$http", "baseService", function ($http, baseService) {
+app.service("typeTemplateService", ["$http", "baseService", function ($http, baseService) {
 
     let domain = "http://loulan.com";
     let urlPrefix = domain + "/typeTemplate";
+    let headers = { crossDomain: true };
 
     angular.extend(this, new baseService(urlPrefix));
 

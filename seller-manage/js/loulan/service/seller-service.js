@@ -2,10 +2,9 @@ app.service("sellerService", ["$http", "baseService", function ($http, baseServi
 
     let domain = "http://loulan.com";
     let urlPrefix = domain + "/seller";
-
-    angular.extend(this, new baseService(urlPrefix));
     let headers = { crossDomain: true };
 
+    angular.extend(this, new baseService(urlPrefix));
 
     this.changeStatus = function (id, status) {
         var params = { id: id, status: status };
