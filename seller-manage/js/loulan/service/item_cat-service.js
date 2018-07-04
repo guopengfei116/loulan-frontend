@@ -12,4 +12,8 @@ app.service("itemCatService", ["$http", "baseService", function($http, baseServi
         return $http.get(`${urlPrefix}/findByParentId.do`, { params, headers, withCredentials: true });
     }
 
+    this.templateList = function () {
+        return $http.get(`${domain}/typeTemplate/selectOptionList.do`, { withCredentials: true });
+    }
+
 }]);

@@ -1,4 +1,3 @@
-
 app.factory("baseService", ["$http", function ($http) {
 
     // 跨域认证请求头
@@ -10,7 +9,7 @@ app.factory("baseService", ["$http", function ($http) {
         // 分页查询
         this.findPage = function(page, size, entity) {
             var params = {page: page, size: size};
-            return $http.post(`${urlPrefix}/search.do`, entity, {params, headers, withCredentials: true});
+            return $http.post(`${urlPrefix}/findPageByWhere.do`, entity, {params, headers, withCredentials: true});
         };
 
         // 查询
@@ -21,7 +20,7 @@ app.factory("baseService", ["$http", function ($http) {
 
         // 新增
         this.add = function(entity) {
-            return $http.post(`${urlPrefix}/add.do`, entity, {headers, withCredentials: true});
+            return $http.put(`${urlPrefix}/add.do`, entity, {headers, withCredentials: true});
         };
 
         // 更新
@@ -32,7 +31,7 @@ app.factory("baseService", ["$http", function ($http) {
         // 批量删除
         this.delIds = function(ids) {
             let params = {ids: ids.toString()};
-            return $http.get(`${urlPrefix}/deleteByIds.do`, {params, headers, withCredentials: true});
+            return $http.delete(`${urlPrefix}/deleteMore.do`, {params, headers, withCredentials: true});
         };
 
     };
