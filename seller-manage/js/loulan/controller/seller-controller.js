@@ -20,7 +20,7 @@ app.controller("sellerController", ["$controller", "$scope", "sellerService", fu
         status: "",
         telephone: ""
     }
-    console.log(123)
+    
     // 分页条件查询
     $scope.findPage = function (page, size) {
         sellerService.findPage(page, size, $scope.sellerSearch)
