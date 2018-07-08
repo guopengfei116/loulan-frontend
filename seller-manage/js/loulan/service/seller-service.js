@@ -1,6 +1,6 @@
-app.service("sellerService", ["$http", "baseService", function ($http, baseService) {
+app.service("sellerService", ["$http", "domain", "baseService", function ($http, domain, baseService) {
 
-    let domain = "http://loulan.com";
+    // 请求前缀
     let urlPrefix = domain + "/seller";
     let headers = { crossDomain: true };
 

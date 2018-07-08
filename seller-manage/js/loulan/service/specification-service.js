@@ -1,6 +1,6 @@
-app.service("specificationService", ["$http", "baseService", function($http, baseService) {
+app.service("specificationService", ["$http", "domain", "baseService", function($http, domain, baseService) {
 
-    let domain = "http://loulan.com";
+    // 请求前缀
     let urlPrefix = domain + "/specification";
     
     angular.extend(this, new baseService(urlPrefix));

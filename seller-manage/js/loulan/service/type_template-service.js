@@ -1,6 +1,6 @@
-app.service("typeTemplateService", ["$http", "baseService", function ($http, baseService) {
+app.service("typeTemplateService", ["$http", "domain", "baseService", function ($http, domain, baseService) {
 
-    let domain = "http://loulan.com";
+    // 请求前缀
     let urlPrefix = domain + "/typeTemplate";
     let headers = { crossDomain: true };
 

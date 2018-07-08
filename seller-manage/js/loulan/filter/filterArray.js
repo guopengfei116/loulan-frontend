@@ -6,4 +6,4 @@ app.filter("filterArr", function () {
         })
         return texts.join(" , ")
     }
-})
+});
