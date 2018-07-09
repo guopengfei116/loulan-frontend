@@ -18,8 +18,22 @@ app.controller("itemCatController", ["$controller", "$scope", "itemCatService", 
         parentId: 0
     };
 
+    $scope.itemCat = {
+        parentName: "",
+        itemCat: {
+            id: "",
+            name: "",
+            parentId: 0,
+            typeId: "",
+            type: {
+                id: "",
+                text: ""
+            }
+        }
+    }
+
     // 初始化typeTemplate列表
-    $scope.initTypeTemplate = function() {
+    $scope.initTypeTemplate = function () {
         return itemCatService.templateList()
             .then(resp => {
                 $scope.templateList = {};
@@ -28,7 +42,7 @@ app.controller("itemCatController", ["$controller", "$scope", "itemCatService", 
     }
 
     // 列表渲染
-    $scope.findPage = function() {
+    $scope.findPage = function () {
         return itemCatService.findByParentId($scope.itemSearch)
             .then(resp => {
                 $scope.list = resp.data.list;
@@ -36,10 +50,10 @@ app.controller("itemCatController", ["$controller", "$scope", "itemCatService", 
     }
 
     // 更新面包屑导航
-    $scope.updateNav = function(itemCat, level) {
-        
+    $scope.updateNav = function (itemCat, level) {
+
         // 下级按钮查询
-        if(level > $scope.navList.length) {
+        if (level > $scope.navList.length) {
             $scope.navList.push(itemCat);
         }
         // 导航按钮查询
@@ -48,7 +62,7 @@ app.controller("itemCatController", ["$controller", "$scope", "itemCatService", 
         }
 
         // 更新level
-        $scope.level.currentLevel = level;  
+        $scope.level.currentLevel = level;
     }
 
     // 获取下级列表
@@ -79,32 +93,51 @@ app.controller("itemCatController", ["$controller", "$scope", "itemCatService", 
         }
     };
 
-   // 保存 => 新增 || 修改
-   $scope.save = function (method) {
-        if ($scope.delIds.length < 1 || $scope.delIds.length > 1) {
-            alert("请选择 1 个要新增的模板");
-            return;
-        }
-
+    // 保存 => 新增 || 修改
+    $scope.save = function () {
         // 保存成功，刷新列表，清除数据
-        itemCatService[method]($scope.typeTemplate)
+        let method = $scope.itemCat.itemCat.id ? "update" : "add";
+        $scope.itemCat.itemCat.typeId = $scope.itemCat.itemCat.type.id;
+        itemCatService[method]($scope.itemCat.itemCat)
             .then(resp => {
                 alert(resp.data.message);
                 if (resp.data.success) {
                     $scope.findPage();
-                    $scope.typeTemplate = {
+                    $scope.itemCat.itemCat = {
                         id: "",
                         name: "",
-                        specIds: [],
-                        brandIds: [],
-                        customAttributeItems: []
+                        parentId: 0,
+                        typeId: "",
+                        type: {
+                            id: "",
+                            text: ""
+                        }
                     };
                 }
             });
     };
 
-    // 初始化
-    $scope.initTypeTemplate();
-    $scope.findPage();
+    // 新建
+    $scope.searchShow = function () {
+        if ($scope.delIds.length == 1) {
+            let one = $scope.list.filter(v => v.id == $scope.delIds[0]);
+            $scope.itemCat.parentName = one[0].name;
+            $scope.itemCat.itemCat.parentId = one[0].id;
+        }
+    }
+
+    // 修改
+    $scope.findOne = function (id) {
+        itemCatService.findOne(id)
+            .then(resp => {
+                $scope.itemCat.itemCat = resp.data;  // 请求回来的数据进行回显编辑
+                $scope.itemCat.itemCat.type = $scope.templateList.data.filter(v => v.id == resp.data.typeId)[0];  // 请求回来的数据进行回显编辑
+
+        });
+    }
+
+// 初始化
+$scope.initTypeTemplate();
+$scope.findPage();
 
 }]);

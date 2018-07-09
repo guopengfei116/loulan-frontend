@@ -51,7 +51,7 @@
                             <div class="pull-left">
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
-                                        <button ng-click="save(add)" type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> 新建</button>
+                                        <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ng-click="searchShow()"><i class="fa fa-file-o"></i> 新建</button>
                                         <button type="button" class="btn btn-default" title="删除" ng-click="delete()"><i class="fa fa-trash-o"></i> 删除</button>
                                         <button type="button" class="btn btn-default" title="刷新" ><i class="fa fa-check"></i> 刷新</button>
                                        
@@ -84,7 +84,7 @@
 									      </td>
 		                                  <td class="text-center">
 		                                      <button type="button" class="btn bg-olive btn-xs" ng-click="searchNextLevel(item, level.currentLevel+1)" ng-if="level.currentLevel < level.maxLevel" >查询下级</button>                               
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>
+		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" ng-click="findOne(item.id)">修改</button>
 		                                  </td>
 			                          </tr>
 			                      </tbody>
@@ -112,24 +112,27 @@
 				<tr>
 		      		<td>上级商品分类</td>
 		      		<td>
-						<span>{{ title[1].num_2}}</span> <span ng-if="itemSearch.parentId != 0 && title[2].num_3 &&title[1].num_2 ">>>  </span><span ng-if="itemSearch.parentId != 0 && title[2].num_3 &&title[1].num_2 ">银饰</span>
+						<span ng-repeat="item in navList">
+							<span>{{item.name}}</span>
+						<span>
+						<span ng-show="delIds.length == 1"> >> {{itemCat.parentName}}</span>
 		      		</td>
 		      	</tr>
 		      	<tr>
 		      		<td>商品分类名称</td>
-		      		<td><input  class="form-control" placeholder="商品分类名称">  </td>
+		      		<td><input  class="form-control" placeholder="商品分类名称" ng-model="itemCat.itemCat.name">  </td>
 		      	</tr>			  
 		      	<tr>
 		      		<td>类型模板</td>
 		      		<td>	      		
-		      			<input select2  select2-model="cat.typeId" config="templateList" placeholder="商品类型模板" class="form-control" type="text"/>
+		      			<input select2  select2-model="itemCat.itemCat.type" config="templateList" placeholder="商品类型模板" class="form-control" type="text"/>
 		      		</td>		      		      		
 		      	</tr>		      	
 			 </table>				
 			
 		</div>
 		<div class="modal-footer">						
-			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true"  ng-click="save()">保存</button>
 			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 		</div>
 	  </div>
