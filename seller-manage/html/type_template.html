@@ -86,9 +86,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="item in list" ng-click="delChange($event, item.id)">
+					<tr ng-repeat="item in list" >
 						<td>
-							<input type="checkbox">
+							<input type="checkbox" ng-click="delChange($event, item.id)">
 						</td>
 						<td>{{ item.id }}</td>
 						<td>{{ item.name}}</td>
